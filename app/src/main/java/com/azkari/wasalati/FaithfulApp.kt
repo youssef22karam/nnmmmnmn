@@ -256,8 +256,8 @@ private fun BrandMark() {
 @Composable
 private fun HdrButton(
     onClick: () -> Unit,
-    content: @Composable () -> Unit,
     tag: String = "",
+    content: @Composable () -> Unit,
 ) {
     Surface(
         shape = RoundedCornerShape(9.dp),
@@ -594,7 +594,7 @@ private fun PrayerBanner(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 10.dp, bottom = 10.dp),
+                            .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
                         verticalArrangement = Arrangement.spacedBy(5.dp),
                     ) {
                         SunnahStrip(summary.sunnahInfo)
