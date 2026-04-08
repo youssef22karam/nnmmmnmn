@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="forest">#065F46</color>
+    <color name="forest_dark">#052E16</color>
+    <color name="forest_mid">#059669</color>
+    <color name="forest_light">#10B981</color>
+    <color name="sage">#D1FAE5</color>
+    <color name="cream">#FAFAF8</color>
+    <color name="surface">#FFFFFCF6</color>
+    <color name="surface_variant">#F0FDF4</color>
+    <color name="surface_dark">#0D1117</color>
+    <color name="gold">#B45309</color>
+    <color name="gold_light">#FEF3C7</color>
+    <color name="gold_bright">#D4A853</color>
+    <color name="amber_text">#9A7B4F</color>
+    <color name="warning">#9A3412</color>
+    <color name="rose">#F43F5E</color>
+    <color name="ink">#1C1917</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

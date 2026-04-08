@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">أذكاري وصلاتي</string>
+    <string name="channel_prayer_name">تنبيهات الصلاة</string>
+    <string name="channel_prayer_description">تنبيهات مواقيت الصلاة والتذكير بها</string>
+    <string name="channel_azkar_name">تنبيهات الأذكار</string>
+    <string name="channel_azkar_description">أذكار الصباح والمساء والنوم ويوم الجمعة</string>
+</resources>
