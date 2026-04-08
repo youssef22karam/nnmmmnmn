@@ -1010,7 +1010,7 @@ private fun AzkarItemCard(
                         fontFamily = TajawalFamily,
                         fontSize = 21.sp,
                         // ↓ lineHeight increased slightly to prevent dot/tashkeel merging
-                        lineHeight = 42.sp,
+                        lineHeight = 30.sp,
                         color = ForestDark,
                     )
                 } else {
