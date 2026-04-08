@@ -1007,10 +1007,10 @@ private fun AzkarItemCard(
                 text = item.text,
                 style = if (item.isQuran) {
                     TextStyle(
-                        fontFamily = AmiriFamily,
+                        fontFamily = TajawalFamily,
                         fontSize = 21.sp,
                         // ↓ lineHeight increased slightly to prevent dot/tashkeel merging
-                        lineHeight = 42.sp,
+                        lineHeight = 30.sp,
                         color = ForestDark,
                     )
                 } else {
@@ -1083,7 +1083,7 @@ private fun CountBubble(remaining: Int, total: Int, onCount: () -> Unit) {
                     shape = shape,
                 )
                 // ↓ vertical 3 → 2
-                .padding(horizontal = 12.dp, vertical = 2.dp),
+                .padding(horizontal = 12.dp, vertical = 0.dp),
             verticalArrangement = Arrangement.spacedBy(2.dp),  // ↓ 3 → 2
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
