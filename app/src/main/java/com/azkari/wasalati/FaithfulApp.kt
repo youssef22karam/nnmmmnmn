@@ -243,8 +243,8 @@ private fun BrandMark() {
 @Composable
 private fun HdrButton(
     onClick: () -> Unit,
-    content: @Composable () -> Unit,
     tag: String = "",
+    content: @Composable () -> Unit,
 ) {
     Surface(
         shape = RoundedCornerShape(9.dp),
