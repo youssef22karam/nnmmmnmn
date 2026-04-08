@@ -427,7 +427,7 @@ private fun HomeStickyHeader(
     }
 }
 
-// ─── Prayer banner ────────────────────────────────────────────────────────────
+// ─── Prayer banner (exact HTML index heights + gaps + new sunnah label) ──────
 
 @Composable
 private fun PrayerBanner(
@@ -456,7 +456,7 @@ private fun PrayerBanner(
                 Brush.linearGradient(listOf(Color(0xFF0A1628), ForestDark, Color(0xFF064E3B))),
             ),
         ) {
-            // Ambient glows (matching index.html)
+            // Ambient glows (exact HTML index)
             Box(
                 modifier = Modifier
                     .size(140.dp)
@@ -476,12 +476,12 @@ private fun PrayerBanner(
 
             Column {
                 if (uiState.bannerCollapsed) {
-                    // ── Collapsed pill ────────────────────────────────────────
+                    // ── Collapsed pill (height reduced to match HTML) ────────
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable(onClick = onToggle)
-                            .padding(horizontal = 16.dp, vertical = 5.dp),
+                            .padding(horizontal = 16.dp, vertical = 4.dp), // decreased from 5.dp
                         contentAlignment = Alignment.Center,
                     ) {
                         Column(
@@ -512,7 +512,7 @@ private fun PrayerBanner(
                         }
                     }
                 } else {
-                    // ── Expanded ──────────────────────────────────────────────
+                    // ── Expanded (height reduced to match HTML) ──────────────
                     // Grabber
                     Box(
                         modifier = Modifier
@@ -529,12 +529,12 @@ private fun PrayerBanner(
                         )
                     }
 
-                    // Compact bar (always visible when expanded)
+                    // Compact bar (height reduced)
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable(onClick = onToggle)
-                            .padding(horizontal = 12.dp, vertical = 6.dp),
+                            .padding(horizontal = 12.dp, vertical = 4.dp), // decreased from 6.dp
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
@@ -589,14 +589,24 @@ private fun PrayerBanner(
                     }
                 }
 
-                // ── Expandable body ───────────────────────────────────────────
+                // ── Expandable body (height + gaps reduced to match HTML) ─────
                 AnimatedVisibility(!uiState.bannerCollapsed) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
+                            .padding(start = 10.dp, end = 10.dp, bottom = 8.dp), // decreased from 10.dp
                         verticalArrangement = Arrangement.spacedBy(5.dp),
                     ) {
+                        // New label exactly as in index.html
+                        Text(
+                            text = "السنن والنوافل للصلاة القادمة",
+                            color = ForestLight.copy(alpha = 0.85f),
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+
                         SunnahStrip(summary.sunnahInfo)
                         PrayerGrid(uiState.prayerDots)
                         Row(
@@ -787,7 +797,6 @@ private fun QuranDailyTrackerCard(quranUiState: QuranUiState) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                // ↓ was 6dp — now 3dp to reduce height
                 .padding(horizontal = 14.dp, vertical = 3.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -1039,7 +1048,6 @@ private fun FaithfulSuggestionCard(suggestion: String, onReset: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFFECFDF5).copy(alpha = 0.8f))
-                // ↓ was py 8dp — now 4dp
                 .padding(horizontal = 12.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -1140,7 +1148,6 @@ private fun SectionDivider(section: AzkarSection) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Brush.linearGradient(colors))
-                // ↓ was py 13dp — now 8dp
                 .padding(horizontal = 12.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -1164,7 +1171,7 @@ private fun SectionDivider(section: AzkarSection) {
     }
 }
 
-// ─── Azkar item card ──────────────────────────────────────────────────────────
+// ─── Azkar item card (exact HTML index font + box heights + gaps) ─────────────
 
 @Composable
 private fun AzkarItemCard(
@@ -1189,8 +1196,8 @@ private fun AzkarItemCard(
                 .fillMaxWidth()
                 .animateContentSize()
                 .background(Brush.verticalGradient(listOf(Color(0xFFFFFCF7), Color(0xFFF7FBF8))))
-                .padding(horizontal = 16.dp, vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
+                .padding(horizontal = 16.dp, vertical = 12.dp), // decreased from 16.dp to match HTML
+            verticalArrangement = Arrangement.spacedBy(8.dp), // tighter gaps
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             item.title?.let {
@@ -1211,12 +1218,17 @@ private fun AzkarItemCard(
             Text(
                 text = item.text,
                 style = if (item.isQuran) {
-                    TextStyle(fontFamily = AmiriFamily, fontSize = 21.sp, lineHeight = 43.sp, color = ForestDark)
+                    TextStyle(
+                        fontFamily = AmiriFamily,
+                        fontSize = 21.sp,
+                        lineHeight = 40.sp, // polished to HTML-like tight line height
+                        color = ForestDark,
+                    )
                 } else {
                     MaterialTheme.typography.bodyLarge.copy(
                         color = Color(0xFF111827),
-                        fontSize = 17.sp,
-                        lineHeight = 34.sp,
+                        fontSize = 16.5.sp, // slightly tighter to match HTML azkar font
+                        lineHeight = 30.sp, // polished to HTML
                         fontWeight = FontWeight.Bold,
                     )
                 },
@@ -1268,8 +1280,8 @@ private fun CountBubble(remaining: Int, total: Int, onCount: () -> Unit) {
                     color = if (complete) Forest else Color(0x22065F46),
                     shape = shape,
                 )
-                .padding(horizontal = 12.dp, vertical = 4.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
+                .padding(horizontal = 12.dp, vertical = 3.dp), // decreased vertical padding for tighter height
+            verticalArrangement = Arrangement.spacedBy(3.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
