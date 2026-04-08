@@ -1048,7 +1048,7 @@ private fun FaithfulSuggestionCard(suggestion: String, onReset: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFFECFDF5).copy(alpha = 0.8f))
-                .padding(horizontal = 12.dp, vertical = 4.dp),
+                .padding(horizontal = 12.dp, vertical = 1.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text("⏱️", fontSize = 12.sp)
@@ -1148,7 +1148,7 @@ private fun SectionDivider(section: AzkarSection) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Brush.linearGradient(colors))
-                .padding(horizontal = 12.dp, vertical = 8.dp),
+                .padding(horizontal = 12.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
@@ -1207,9 +1207,9 @@ private fun AzkarItemCard(
                 ) {
                     Text(
                         text = it,
-                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 3.dp),
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
                         color = Forest,
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = FontWeight.Medium,
                         fontSize = 11.sp,
                     )
                 }
