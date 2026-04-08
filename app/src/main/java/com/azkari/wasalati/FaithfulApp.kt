@@ -491,14 +491,14 @@ private fun PrayerBanner(
                             Text(
                                 text = "المتبقي للصلاة القادمة",
                                 color = ForestLight.copy(alpha = 0.75f),
-                                fontSize = 8.sp,
+                                fontSize = 11.sp,
                                 fontWeight = FontWeight.SemiBold,
                             )
                             Text(
                                 text = formatCountdown(summary.countdownMillis),
                                 style = TextStyle(
                                     fontWeight = FontWeight.Bold,
-                                    fontSize = 20.sp,
+                                    fontSize = 23.sp,
                                     letterSpacing = 1.1.sp,
                                     color = Color.White,
                                 ),
@@ -523,7 +523,7 @@ private fun PrayerBanner(
                         Box(
                             modifier = Modifier
                                 .width(28.dp)
-                                .height(3.dp)
+                                .height(2.dp)
                                 .clip(RoundedCornerShape(2.dp))
                                 .background(Color.White.copy(alpha = 0.15f)),
                         )
@@ -559,13 +559,13 @@ private fun PrayerBanner(
                                     modifier = Modifier.padding(bottom = 2.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                 ) {
-                                    Text("←", color = Color.White.copy(alpha = 0.5f), fontSize = 8.sp)
+                                    Text("←", color = Color.White.copy(alpha = 0.5f), fontSize = 10.sp)
                                     Spacer(Modifier.width(2.dp))
                                     Text(
                                         summary.nextPrayer.displayName(),
                                         color = ForestLight,
                                         fontWeight = FontWeight.Bold,
-                                        fontSize = 8.sp,
+                                        fontSize = 10.sp,
                                     )
                                 }
                             }
@@ -601,7 +601,7 @@ private fun PrayerBanner(
                         Text(
                             text = "السنن والنوافل للصلاة القادمة",
                             color = ForestLight.copy(alpha = 0.85f),
-                            fontSize = 9.sp,
+                            fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth(),
@@ -682,7 +682,7 @@ private fun SunnahStrip(sunnahInfo: SunnahInfo) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.White.copy(alpha = 0.05f))
-                .padding(horizontal = 16.dp, vertical = 7.dp),
+                .padding(horizontal = 16.dp, vertical = 4.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -691,7 +691,7 @@ private fun SunnahStrip(sunnahInfo: SunnahInfo) {
             }
             Box(
                 modifier = Modifier
-                    .height(24.dp)
+                    .height(15.dp)
                     .width(1.dp)
                     .background(Color.White.copy(alpha = 0.15f)),
             )
