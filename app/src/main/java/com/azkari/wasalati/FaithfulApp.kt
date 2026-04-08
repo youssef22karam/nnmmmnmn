@@ -429,7 +429,7 @@ private fun PrayerBanner(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable(onClick = onToggle)
-                            .padding(horizontal = 16.dp, vertical = -1.dp), // reduced to match exact visual height
+                            .padding(horizontal = 16.dp, vertical = 0.1.dp), // reduced to match exact visual height
                         contentAlignment = Alignment.Center,
                     ) {
                         Column(
