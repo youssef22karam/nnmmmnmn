@@ -77,7 +77,6 @@ fun AzkariFaithfulApp(
     onUseCurrentLocation: () -> Unit,
 ) {
     val uiState = viewModel.uiState
-
     AzkariFaithfulTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             Box(
@@ -123,11 +122,9 @@ fun AzkariFaithfulApp(
                         )
                     }
                 }
-
                 if (uiState.isOffline) {
                     OfflineBanner(Modifier.align(Alignment.TopCenter).padding(top = 92.dp))
                 }
-
                 uiState.currentToast?.let { toast ->
                     ToastCard(
                         message = toast.message,
@@ -137,7 +134,6 @@ fun AzkariFaithfulApp(
                             .testTag("toast_card"),
                     )
                 }
-
                 FaithfulModalHost(
                     uiState = uiState,
                     viewModel = viewModel,
@@ -153,7 +149,6 @@ fun AzkariFaithfulApp(
 }
 
 // ─── Brand mark: exact mosque SVG from index.html ───────────────────────────
-
 @Composable
 private fun BrandMark() {
     Box(
@@ -172,7 +167,6 @@ private fun BrandMark() {
             val greenDoor = Color(0x80065F46)
             val greenWin = Color(0x59065F46)
             val gold = Color(0xFFF59E0B)
-
             // Mosque silhouette bg
             val mqPath = Path().apply {
                 moveTo(16f * s, 4f * s)
@@ -192,21 +186,16 @@ private fun BrandMark() {
                 close()
             }
             drawPath(mqPath, white12)
-
             // Dome
             drawOval(white90, Offset(11f * s, 5f * s), Size(10f * s, 10f * s))
-
             // Left minaret body & cap
             drawRect(white70, Offset(5f * s, 14f * s), Size(3.5f * s, 10f * s))
             drawOval(white85, Offset(4.75f * s, 11.5f * s), Size(4f * s, 4f * s))
-
             // Right minaret body & cap
             drawRect(white70, Offset(23.5f * s, 14f * s), Size(3.5f * s, 10f * s))
             drawOval(white85, Offset(23.25f * s, 11.5f * s), Size(4f * s, 4f * s))
-
             // Main building
             drawRect(white85, Offset(8f * s, 17f * s), Size(16f * s, 10f * s))
-
             // Door (arch)
             val door = Path().apply {
                 moveTo(14f * s, 27f * s)
@@ -217,11 +206,9 @@ private fun BrandMark() {
                 close()
             }
             drawPath(door, greenDoor)
-
             // Windows
             drawRoundRect(greenWin, Offset(10f * s, 19f * s), Size(2.5f * s, 2.5f * s), CornerRadius(0.8f * s))
             drawRoundRect(greenWin, Offset(19.5f * s, 19f * s), Size(2.5f * s, 2.5f * s), CornerRadius(0.8f * s))
-
             // Crescent
             val crescent = Path().apply {
                 moveTo(16f * s, 6.5f * s)
@@ -231,7 +218,6 @@ private fun BrandMark() {
                 close()
             }
             drawPath(crescent, gold, style = Fill)
-
             // Star
             val star = Path().apply {
                 moveTo(17.5f * s, 5.5f * s)
@@ -252,7 +238,6 @@ private fun BrandMark() {
 }
 
 // ─── Header button — matches HTML hdr-btn (square, 30dp, 9dp radius) ────────
-
 @Composable
 private fun HdrButton(
     onClick: () -> Unit,
@@ -276,7 +261,6 @@ private fun HdrButton(
 }
 
 // ─── City pill — matches HTML city-btn ──────────────────────────────────────
-
 @Composable
 private fun CityButton(label: String, onClick: () -> Unit) {
     Surface(
@@ -311,7 +295,6 @@ private fun CityButton(label: String, onClick: () -> Unit) {
 }
 
 // ─── Sticky header ───────────────────────────────────────────────────────────
-
 @Composable
 private fun HomeStickyHeader(
     uiState: AppUiState2,
@@ -339,7 +322,6 @@ private fun HomeStickyHeader(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 BrandMark()
-
                 // App name + hijri date — single line guaranteed
                 Column(
                     modifier = Modifier.weight(1f),
@@ -363,12 +345,10 @@ private fun HomeStickyHeader(
                         maxLines = 1,
                     )
                 }
-
                 // Settings
                 HdrButton(onClick = onOpenSettings, tag = "settings_button") {
                     Icon(Icons.Rounded.Tune, contentDescription = null, tint = Color(0xFF374151), modifier = Modifier.size(13.dp))
                 }
-
                 // Qada with badge
                 Box {
                     HdrButton(onClick = onOpenQada, tag = "qada_button") {
@@ -392,16 +372,13 @@ private fun HomeStickyHeader(
                         }
                     }
                 }
-
                 // City
                 CityButton(
                     label = uiState.currentCity?.name ?: "اختر مدينة",
                     onClick = onOpenCity,
                 )
             }
-
             Spacer(Modifier.height(8.dp))
-
             // ── Prayer banner ─────────────────────────────────────────────────
             if (uiState.currentCity != null && uiState.prayerSummary != null) {
                 PrayerBanner(
@@ -411,24 +388,20 @@ private fun HomeStickyHeader(
                 )
                 Spacer(Modifier.height(5.dp))
             }
-
             // ── Quran entry ───────────────────────────────────────────────────
             QuranEntryCard(onOpenQuran = onOpenQuran)
-
             // ── Daily Quran tracker ───────────────────────────────────────────
             if (uiState.quran.dailyGoal > 0) {
                 Spacer(Modifier.height(5.dp))
                 QuranDailyTrackerCard(uiState.quran)
             }
-
             Spacer(Modifier.height(8.dp))
             TabStrip(selected = uiState.selectedTab, onSelect = onSelectTab)
         }
     }
 }
 
-// ─── Prayer banner (exact HTML index heights + gaps + new sunnah label) ──────
-
+// ─── Prayer banner (reduced height for both collapsed & expanded) ────────────
 @Composable
 private fun PrayerBanner(
     uiState: AppUiState2,
@@ -440,7 +413,6 @@ private fun PrayerBanner(
     val expandedRadius = 18.dp
     val radius = if (uiState.bannerCollapsed) collapsedRadius else expandedRadius
     val shape = RoundedCornerShape(radius)
-
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -473,15 +445,14 @@ private fun PrayerBanner(
                         Brush.radialGradient(listOf(Color(0x1F3B82F6), Color.Transparent)),
                     ),
             )
-
             Column {
                 if (uiState.bannerCollapsed) {
-                    // ── Collapsed pill (height reduced to match HTML) ────────
+                    // ── Collapsed pill (height reduced) ───────────────────────
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable(onClick = onToggle)
-                            .padding(horizontal = 16.dp, vertical = 4.dp), // decreased from 5.dp
+                            .padding(horizontal = 16.dp, vertical = 3.dp),
                         contentAlignment = Alignment.Center,
                     ) {
                         Column(
@@ -512,12 +483,12 @@ private fun PrayerBanner(
                         }
                     }
                 } else {
-                    // ── Expanded (height reduced to match HTML) ──────────────
+                    // ── Expanded (height reduced) ─────────────────────────────
                     // Grabber
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 4.dp, bottom = 1.dp),
+                            .padding(top = 3.dp, bottom = 0.dp),
                         contentAlignment = Alignment.Center,
                     ) {
                         Box(
@@ -528,13 +499,12 @@ private fun PrayerBanner(
                                 .background(Color.White.copy(alpha = 0.15f)),
                         )
                     }
-
-                    // Compact bar (height reduced)
+                    // Compact bar
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable(onClick = onToggle)
-                            .padding(horizontal = 12.dp, vertical = 4.dp), // decreased from 6.dp
+                            .padding(horizontal = 12.dp, vertical = 1.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
@@ -588,14 +558,13 @@ private fun PrayerBanner(
                         }
                     }
                 }
-
-                // ── Expandable body (height + gaps reduced to match HTML) ─────
+                // ── Expandable body (height + gaps reduced) ───────────────────
                 AnimatedVisibility(!uiState.bannerCollapsed) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 10.dp, end = 10.dp, bottom = 8.dp), // decreased from 10.dp
-                        verticalArrangement = Arrangement.spacedBy(5.dp),
+                            .padding(start = 10.dp, end = 10.dp, bottom = 6.dp),
+                        verticalArrangement = Arrangement.spacedBy(3.dp),
                     ) {
                         // New label exactly as in index.html
                         Text(
@@ -606,7 +575,6 @@ private fun PrayerBanner(
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth(),
                         )
-
                         SunnahStrip(summary.sunnahInfo)
                         PrayerGrid(uiState.prayerDots)
                         Row(
@@ -682,7 +650,7 @@ private fun SunnahStrip(sunnahInfo: SunnahInfo) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.White.copy(alpha = 0.05f))
-                .padding(horizontal = 16.dp, vertical = 4.dp),
+                .padding(horizontal = 16.dp, vertical = 3.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -714,7 +682,7 @@ private fun PrayerGrid(dots: List<PrayerDotUi>) {
                 color = Color.White.copy(alpha = 0.08f),
             ) {
                 Column(
-                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 7.dp),
+                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 5.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Text(item.label, color = Color.White.copy(alpha = 0.6f), fontSize = 9.sp)
@@ -728,7 +696,6 @@ private fun PrayerGrid(dots: List<PrayerDotUi>) {
 }
 
 // ─── Quran entry card ─────────────────────────────────────────────────────────
-
 @Composable
 private fun QuranEntryCard(onOpenQuran: () -> Unit) {
     val shape = RoundedCornerShape(14.dp)
@@ -780,7 +747,6 @@ private fun QuranEntryCard(onOpenQuran: () -> Unit) {
 }
 
 // ─── Daily Quran tracker — reduced height ────────────────────────────────────
-
 @Composable
 private fun QuranDailyTrackerCard(quranUiState: QuranUiState) {
     val goal = quranUiState.dailyGoal.coerceAtLeast(1)
@@ -854,7 +820,6 @@ private fun QuranDailyTrackerCard(quranUiState: QuranUiState) {
 }
 
 // ─── Tab strip ────────────────────────────────────────────────────────────────
-
 @Composable
 private fun TabStrip(selected: HomeTab, onSelect: (HomeTab) -> Unit) {
     val scrollState = rememberScrollState()
@@ -911,7 +876,6 @@ private fun HomeTabPill(tab: HomeTab, selected: Boolean, onClick: () -> Unit) {
 }
 
 // ─── Home content ─────────────────────────────────────────────────────────────
-
 @Composable
 private fun HomeContent(
     modifier: Modifier,
@@ -919,7 +883,6 @@ private fun HomeContent(
     viewModel: FaithfulMainViewModel,
 ) {
     val listState = rememberLazyListState()
-
     LaunchedEffect(listState) {
         var previousScroll = 0
         snapshotFlow { (listState.firstVisibleItemIndex * 10_000) + listState.firstVisibleItemScrollOffset }
@@ -933,7 +896,6 @@ private fun HomeContent(
                 if (delta > 2 || delta < -2) previousScroll = currentScroll
             }
     }
-
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -947,7 +909,6 @@ private fun HomeContent(
                 EmptyCityCard(onOpenCity = { viewModel.openModal(AppModal.CITY) })
             }
         }
-
         uiState.suggestion?.let { suggestion ->
             item {
                 FaithfulSuggestionCard(
@@ -956,11 +917,9 @@ private fun HomeContent(
                 )
             }
         }
-
         if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
             item { FridayKahfCard(onOpen = viewModel::openSurahKahf) }
         }
-
         if (uiState.homeSections.isEmpty()) {
             item { EmptyStateCard() }
         } else {
@@ -981,7 +940,6 @@ private fun HomeContent(
                 }
             }
         }
-
         item {
             Text(
                 text = "﷽ — صدقة جارية للحاج ماهر كرم وجميع أموات المسلمين رحمهم الله",
@@ -997,7 +955,6 @@ private fun HomeContent(
 }
 
 // ─── Empty city card ──────────────────────────────────────────────────────────
-
 @Composable
 private fun EmptyCityCard(onOpenCity: () -> Unit) {
     Surface(
@@ -1032,8 +989,7 @@ private fun EmptyCityCard(onOpenCity: () -> Unit) {
     }
 }
 
-// ─── Suggestion card — reduced height ────────────────────────────────────────
-
+// ─── Suggestion card (reduced top/bottom gaps) ───────────────────────────────
 @Composable
 private fun FaithfulSuggestionCard(suggestion: String, onReset: () -> Unit) {
     val shape = RoundedCornerShape(12.dp)
@@ -1048,7 +1004,7 @@ private fun FaithfulSuggestionCard(suggestion: String, onReset: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFFECFDF5).copy(alpha = 0.8f))
-                .padding(horizontal = 12.dp, vertical = 1.dp),
+                .padding(horizontal = 12.dp, vertical = 0.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text("⏱️", fontSize = 12.sp)
@@ -1080,7 +1036,6 @@ private fun FaithfulSuggestionCard(suggestion: String, onReset: () -> Unit) {
 }
 
 // ─── Friday Kahf card ─────────────────────────────────────────────────────────
-
 @Composable
 private fun FridayKahfCard(onOpen: () -> Unit) {
     val shape = RoundedCornerShape(20.dp)
@@ -1128,8 +1083,7 @@ private fun FridayKahfCard(onOpen: () -> Unit) {
     }
 }
 
-// ─── Section divider — reduced height ────────────────────────────────────────
-
+// ─── Section divider (reduced height + gap to azkar card) ────────────────────
 @Composable
 private fun SectionDivider(section: AzkarSection) {
     val colors = when (section.palette) {
@@ -1148,7 +1102,7 @@ private fun SectionDivider(section: AzkarSection) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Brush.linearGradient(colors))
-                .padding(horizontal = 12.dp, vertical = 4.dp),
+                .padding(horizontal = 12.dp, vertical = 3.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
@@ -1171,8 +1125,7 @@ private fun SectionDivider(section: AzkarSection) {
     }
 }
 
-// ─── Azkar item card (exact HTML index font + box heights + gaps) ─────────────
-
+// ─── Azkar item card (azkar text right-aligned + Amiri font fix + reduced heights) ─
 @Composable
 private fun AzkarItemCard(
     section: AzkarSection,
@@ -1196,9 +1149,9 @@ private fun AzkarItemCard(
                 .fillMaxWidth()
                 .animateContentSize()
                 .background(Brush.verticalGradient(listOf(Color(0xFFFFFCF7), Color(0xFFF7FBF8))))
-                .padding(horizontal = 16.dp, vertical = 12.dp), // decreased from 16.dp to match HTML
-            verticalArrangement = Arrangement.spacedBy(8.dp), // tighter gaps
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp),
+            horizontalAlignment = Alignment.Start,   // right side in RTL
         ) {
             item.title?.let {
                 Surface(
@@ -1207,47 +1160,47 @@ private fun AzkarItemCard(
                 ) {
                     Text(
                         text = it,
-                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
                         color = Forest,
                         fontWeight = FontWeight.Medium,
                         fontSize = 11.sp,
                     )
                 }
             }
-
             Text(
                 text = item.text,
+                modifier = Modifier.fillMaxWidth(),
                 style = if (item.isQuran) {
                     TextStyle(
                         fontFamily = AmiriFamily,
                         fontSize = 21.sp,
-                        lineHeight = 40.sp, // polished to HTML-like tight line height
+                        lineHeight = 40.sp,
                         color = ForestDark,
                     )
                 } else {
-                    MaterialTheme.typography.bodyLarge.copy(
+                    TextStyle(
+                        fontFamily = AmiriFamily,           // fixed font — prevents dots merging with tashkeel
+                        fontSize = 17.sp,
+                        lineHeight = 32.sp,
                         color = Color(0xFF111827),
-                        fontSize = 16.5.sp, // slightly tighter to match HTML azkar font
-                        lineHeight = 30.sp, // polished to HTML
                         fontWeight = FontWeight.Bold,
                     )
                 },
-                textAlign = TextAlign.Center,
+                textAlign = TextAlign.Start,   // right-aligned in RTL
             )
-
             CountBubble(remaining = remaining, total = item.count, onCount = onCount)
-
             item.fadl?.let {
                 Surface(
                     shape = RoundedCornerShape(14.dp),
                     color = Color(0xFFFFF2D8),
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
                     Text(
                         text = "فضل: $it",
-                        modifier = Modifier.padding(10.dp),
+                        modifier = Modifier.padding(8.dp),
                         color = Color(0xFF8D5E10),
                         style = MaterialTheme.typography.bodySmall,
-                        textAlign = TextAlign.Center,
+                        textAlign = TextAlign.Start,
                     )
                 }
             }
@@ -1280,8 +1233,8 @@ private fun CountBubble(remaining: Int, total: Int, onCount: () -> Unit) {
                     color = if (complete) Forest else Color(0x22065F46),
                     shape = shape,
                 )
-                .padding(horizontal = 12.dp, vertical = 3.dp), // decreased vertical padding for tighter height
-            verticalArrangement = Arrangement.spacedBy(3.dp),
+                .padding(horizontal = 12.dp, vertical = 2.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -1330,7 +1283,6 @@ private fun CountBubble(remaining: Int, total: Int, onCount: () -> Unit) {
 }
 
 // ─── Empty / offline / toast ──────────────────────────────────────────────────
-
 @Composable
 private fun EmptyStateCard() {
     Surface(shape = RoundedCornerShape(22.dp), color = MaterialTheme.colorScheme.surface) {
@@ -1384,7 +1336,6 @@ private fun ToastCard(message: String, modifier: Modifier = Modifier) {
 }
 
 // ─── Utility ──────────────────────────────────────────────────────────────────
-
 private fun formatCountdown(millis: Long): String {
     val totalSeconds = (millis / 1000L).coerceAtLeast(0L)
     val hours = totalSeconds / 3600
